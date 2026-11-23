@@ -9,7 +9,11 @@ can focus on the most promising ground first.
 **Result:** a Random Forest reached **0.93 ROC-AUC** on held-out test data. At its decision threshold, **43% of the cells it flagged
 were real deposits**, when only about 4% of the test cells contain one.
 
-The full analysis, with figures and discussion, is in [`TinTungstenProject(5)-1`](TinTungstenProject(5)-1).
+<p align="center">
+  <img src="images/ROC_Curve.png" alt="ROC curves on the test set: Random Forest AUC 0.9305, SVM AUC 0.9164" width="560">
+</p>
+
+The full analysis, with figures and discussion, is in [`TinTungstenProject(5)-1.ipynb`](TinTungstenProject%285%29-1.ipynb).
 
 ## Data
 
@@ -24,6 +28,14 @@ The study area is divided into 251,138 grid cells. Each cell holds the average o
 
 I engineered three more features: the K/Th ratio, IR × U, and TMI × elevation. The IR × U term follows a geological
 hypothesis: Sn-W deposits form near granites, which show up as gravity lows, where hot fluids have enriched the rock in uranium.
+
+<p align="center">
+  <img src="images/FeatureCorrelationHeatmap.png" alt="Correlation heatmap of all features and the deposit label" width="720">
+</p>
+
+The bottom row of the heatmap shows each feature's correlation with deposit presence. IR × U has the strongest correlation of
+any feature (−0.35), stronger than gravity (−0.29) or uranium (+0.26) alone. No single feature is a strong predictor on its
+own, which is why I used non-linear models that can combine them.
 
 Labels come from 222 known Sn-W occurrences. I sampled 5,000 cells without a deposit as background, so the dataset has about
 20 empty cells for every deposit cell.
